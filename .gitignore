@@ -1,0 +1,3 @@
+pycore
+*.pyc
+.env
