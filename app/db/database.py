@@ -7,6 +7,7 @@ fake_db = {
         "active": True,
     }
 }
+# password = secret
 
 
 def get_user(username: str):

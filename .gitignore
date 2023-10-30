@@ -3,3 +3,4 @@ pycore
 .gitignore
 .env
 task.md
+app/db/alembic/versions
