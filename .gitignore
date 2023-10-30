@@ -1,3 +1,5 @@
 pycore
 *.pyc
+.gitignore
 .env
+task.md
