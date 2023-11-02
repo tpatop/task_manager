@@ -1,16 +1,32 @@
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from api.models.user import UserInDB
-
-fake_db = {
-    "user": {
-        "username": "user",
-        "hash_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "active": True,
-    }
-}
-# password = secret
+from .models import User
 
 
-def get_user(username: str):
-    if username in fake_db:
-        user = fake_db.get(username)
-        return UserInDB(**user)
+class Basic:
+    def __init__(self, session_maker):
+        self._session_maker = session_maker
+
+    @property
+    def session(self) -> AsyncSession:
+        session = self._session_maker
+        return session
+
+
+class UserRepo(Basic):
+    async def get_user(self, username: str):
+        async with self.session as session:
+            query = select(User).filter_by(username=username)
+            result = await session.execute(query)
+            return result.scalar_one_or_none()
+
+    async def create_user(self, ):
+        pass
+
+    async def update_user(self, ):
+        pass
+
+    async def delete_user(self, ):
+        pass
