@@ -31,6 +31,10 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
+def to_hash_password(password: str):
+    return pwd_context.hash(password)
+
+
 async def authenticate_user(username: str, password: str):
     async for session in get_session():
         user_repo: UserRepo = UserRepo(session)

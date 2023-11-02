@@ -8,6 +8,7 @@ from core.security import (
     create_access_token,
     get_current_active_user
 )
+from services.user_service import registration_new_user
 
 
 router = APIRouter()
@@ -34,7 +35,8 @@ async def login_for_access_token(
 
 @router.post('/registration')
 async def registration_user(user_data: UserReg):
-    pass
+    await registration_new_user(user_data)
+    return {'message': 'Successfull registration'}
 
 
 @router.get('/me', dependencies=[Depends(get_current_active_user)])
