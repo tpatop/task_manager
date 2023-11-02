@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from api.endopoints.users import router as user_router
-from db import init_db, close_db
+from db.session import init_db, close_db
 
 app = FastAPI()
 app.include_router(router=user_router, prefix='/users')

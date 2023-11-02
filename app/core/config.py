@@ -7,6 +7,7 @@ class Config(BaseModel):
     algorithm: str
     expire_minutes: int | None = None
 
+
 class DBConfig(BaseModel):
     login: str
     password: str

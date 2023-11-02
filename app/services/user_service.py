@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status
-from db import async_session
+from db.session import async_session
 from db.database import UserRepo
 from core.security import to_hash_password
 from api.schemas.user import UserReg

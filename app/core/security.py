@@ -9,7 +9,7 @@ from api.schemas.user import UserInDB
 from db.database import UserRepo
 from core.config import load_config, Config
 
-from db import get_session
+from db.session import get_session
 
 
 config: Config = load_config()
