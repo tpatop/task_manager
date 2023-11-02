@@ -2,7 +2,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 
-from api.models.user import UserInDB
 from .models import User
 
 
@@ -31,7 +30,6 @@ class UserRepo(Basic):
             except IntegrityError as exc:
                 await session.rollback()
                 raise exc
-
 
     async def update_user(self, ):
         pass

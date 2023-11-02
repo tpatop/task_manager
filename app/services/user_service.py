@@ -2,13 +2,11 @@ from fastapi import HTTPException, status
 from db import async_session
 from db.database import UserRepo
 from core.security import to_hash_password
-from api.models.user import UserReg
+from api.schemas.user import UserReg
 from db.models import User
 
 
 async def registration_new_user(user_data: UserReg):
-    # проверка по имени
-    # регистрация
     async with async_session() as session:
         user_repo: UserRepo = UserRepo(session)
         user = await user_repo.get_user(user_data.username)

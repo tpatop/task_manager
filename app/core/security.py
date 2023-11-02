@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from api.models.user import UserInDB
+from api.schemas.user import UserInDB
 from db.database import UserRepo
 from core.config import load_config, Config
 

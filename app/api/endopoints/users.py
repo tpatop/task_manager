@@ -1,7 +1,7 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-from api.models.token import Token
-from api.models.user import UserReg
+from api.schemas.token import Token
+from api.schemas.user import UserReg
 from core.security import (
     OAuth2PasswordRequestForm,
     authenticate_user,
