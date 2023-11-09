@@ -35,8 +35,14 @@ class UserRepo(Basic):
     async def update_user(self, ):
         pass
 
-    async def delete_user(self, ):
-        pass
+    async def delete_user(self, user: User):
+        async with self.session as session:
+            await session.delete(user)
+            try:
+                await session.commit()
+            except IntegrityError as exc:
+                await session.rollback()
+                raise exc
 
 
 class TaskRepo(Basic):
@@ -46,9 +52,11 @@ class TaskRepo(Basic):
             result = await session.execute(query)
             return result.fetchall()
 
-    async def get_task(self, user: User):
+    async def get_task(self, user: User, task_id: int):
         async with self.session as session:
-            pass
+            query = select(Task).filter_by(user_id=user.user_id, id=task_id)
+            result = await session.execute(query)
+            return result.one_or_none()
 
     async def create_task(self, task: Task):
         async with self.session as session:
@@ -62,5 +70,11 @@ class TaskRepo(Basic):
     async def update_task(self, ):
         pass
 
-    async def delete_task(self, ):
-        pass
+    async def delete_task(self, task: Task):
+        async with self.session as session:
+            await session.delete(task)
+            try:
+                await session.commit()
+            except IntegrityError as exc:
+                await session.rollback()
+                raise exc

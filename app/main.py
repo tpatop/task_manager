@@ -19,9 +19,9 @@ async def shutdown():
     await close_db()
 
 
-@app.get('/')
-async def root():
-    return {'message': 'Root'}
+# @app.get('/')
+# async def root():
+#     return {'message': 'Root'}
 
 
 if __name__ == '__main__':

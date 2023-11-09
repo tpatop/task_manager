@@ -21,7 +21,7 @@ async def login_for_access_token(
     user = await authenticate_user(
         form_data.username,
         form_data.password
-        )
+    )
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -39,6 +39,6 @@ async def registration_user(user_data: UserReg):
     return {'message': 'Successfull registration'}
 
 
-@router.get('/me', dependencies=[Depends(get_current_active_user)])
-async def get_me():
-    return {'message': 'Successfull'}
+# @router.get('/me', dependencies=[Depends(get_current_active_user)])
+# async def get_me():
+#     return {'message': 'Successfull'}
