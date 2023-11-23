@@ -1,36 +1,58 @@
 version: '3.9'
+
 services:
   postgres:
-    container_name: database
-    image: postgres
+    container_name: postgres
+    image: postgres:16.1
     environment:
-      POSTGRES_DB: "database"
-      POSTGRES_USER: "user"
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_LOGIN}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "${DB_NAME}", "-h", "postgres", "-p", "5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
     networks:
-      - postgres
+      - appnet
 
   adminer:
     container_name: db_admin
-    image: adminer
+    image: adminer:4.8.1
     volumes:
       - pgadmin:/var/lib/pgadmin
     depends_on:
       - postgres
     ports:
-      - 8081:8080
+      - 8888:8080
     restart: always
     networks:
-      - postgres
+      - appnet
+
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: web.Dockerfile
+    working_dir: /code
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+    restart: always
+    networks:
+      - appnet
 
 networks:
-  postgres:
+  appnet:
+    name: appnet
     driver: bridge
 
 volumes:

@@ -9,9 +9,10 @@ class Config(BaseModel):
 
 
 class DBConfig(BaseModel):
+    server: str
     login: str
     password: str
-    name_db: str
+    db_name: str
 
 
 def load_config(path: str | None = None):
@@ -30,7 +31,8 @@ def load_db_config(path: str | None = None):
     env.read_env(path)
 
     return DBConfig(
+        server=env('DB_SERVER'),
         login=env('DB_LOGIN'),
         password=env('DB_PASSWORD'),
-        name_db=env('DB_NAME')
+        db_name=env('DB_NAME')
     )
