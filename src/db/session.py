@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker
 )
 
-from core.config import load_db_config, DBConfig
+from src.core.config import load_db_config, DBConfig
 
 
 cfg: DBConfig = load_db_config()

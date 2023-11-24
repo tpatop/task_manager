@@ -1,10 +1,10 @@
 from typing import List
-
 from fastapi import HTTPException, status
-from db.session import async_session
-from db.database import TaskRepo, UserRepo, User, Task
-from api.schemas.user import UserInDB
-from api.schemas.task import Task as TaskShemas
+
+from src.db.session import async_session
+from src.db.database import TaskRepo, UserRepo, User, Task
+from src.api.schemas.user import UserInDB
+from src.api.schemas.task import Task as TaskShemas
 
 
 async def get_user_tasks_list(user: UserInDB):

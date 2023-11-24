@@ -21,4 +21,4 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD [ "sh", "-c", "alembic upgrade head; python app/main.py"]
+CMD [ "sh", "-c", "alembic upgrade head; python main.py"]

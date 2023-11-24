@@ -1,14 +1,14 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
-from api.schemas.token import Token
-from api.schemas.user import UserReg
-from core.security import (
+from src.api.schemas.token import Token
+from src.api.schemas.user import UserReg
+from src.core.security import (
     OAuth2PasswordRequestForm,
     authenticate_user,
     create_access_token,
     get_current_active_user
 )
-from services.user_service import registration_new_user
+from src.services.user_service import registration_new_user
 
 
 router = APIRouter()

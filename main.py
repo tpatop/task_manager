@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
-from api.endpoints.users import router as user_router
-from api.endpoints.tasks import router as task_router
+from src.api.endpoints.users import router as user_router
+from src.api.endpoints.tasks import router as task_router
 
 
 app = FastAPI()

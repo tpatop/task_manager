@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends
 
-from api.schemas.user import UserInDB
-from api.schemas.task import Task
-from core.security import get_current_active_user
-from services.task_service import (
+from src.api.schemas.user import UserInDB
+from src.api.schemas.task import Task
+from src.core.security import get_current_active_user
+from src.services.task_service import (
     get_user_tasks_list,
     get_one_user_task,
     add_user_task,
