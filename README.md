@@ -22,9 +22,14 @@ cp .env.example .env
 ```
 
 ## Usage
-### Running the API Locally:
+### Running the API Locally for production:
 ```
-docker-compose up
+make app
+```
+
+### Running the API Locally for development:
+```
+make dev
 ```
 
 ## Documentation
@@ -34,22 +39,26 @@ docker-compose up
 ## Additional Information
 
 * Database Migrations:
-    * Alembic is used for managing database migrations. If you make changes to the database models, run the following command to apply the migrations:
+  * Alembic is used for managing database migrations. If you make changes to the database models, run the following command to apply the migrations:
 ```
-docker-compose exec web alembic upgrade head
+make migrate
 ```
 
 * Stopping the Services:
     * To stop the services, use the following command:
 
 ```
-docker-compose down
+make stop
 ```
 
 * Rebuilding Images:
     * If you make changes to the Dockerfile or dependencies, rebuild the images with:
 ```
-docker-compose up --build
+make app-rebuild
+```
+or
+```
+make dev-rebuild
 ```
 
 * Contributing
