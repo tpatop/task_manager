@@ -5,11 +5,19 @@ from sqlalchemy import pool
 
 from alembic import context
 
+from src.db.session import cfg
 from src.db.models import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+
+section = config.config_ini_section
+config.set_section_option(section, 'DB_SERVER', cfg.server)
+config.set_section_option(section, 'DB_NAME', cfg.db_name)
+config.set_section_option(section, 'DB_LOGIN', cfg.login)
+config.set_section_option(section, 'DB_PASSWORD', cfg.password)
+
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
