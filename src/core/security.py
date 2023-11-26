@@ -9,7 +9,7 @@ from src.api.schemas.user import UserInDB
 from src.db.database import UserRepo
 from src.core.config import load_config, Config
 
-from src.db.session import get_session
+from src.db.session import async_session
 
 
 config: Config = load_config()
@@ -36,9 +36,9 @@ def to_hash_password(password: str):
 
 
 async def authenticate_user(username: str, password: str):
-    async for session in get_session():
+    async with async_session() as session:
         user_repo: UserRepo = UserRepo(session)
-        user = await user_repo.get_user(username)
+        user = await user_repo.get_one(username)
         if not user:
             return False
         if not verify_password(password, user.hash_password):
@@ -61,9 +61,10 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_sheme)]):
             raise exc
     except JWTError:
         raise exc
-    async for session in get_session():
+
+    async with async_session() as session:
         user_repo: UserRepo = UserRepo(session)
-        user = await user_repo.get_user(username)
+        user = await user_repo.get_one(username)
         if user is None:
             raise exc
         return user

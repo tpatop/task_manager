@@ -6,9 +6,9 @@ from src.core.security import (
     OAuth2PasswordRequestForm,
     authenticate_user,
     create_access_token,
-    get_current_active_user
+    # get_current_active_user
 )
-from src.services.user_service import registration_new_user
+from src.services.user_service import UserServices
 
 
 router = APIRouter()
@@ -35,7 +35,8 @@ async def login_for_access_token(
 
 @router.post('/registration')
 async def registration_user(user_data: UserReg):
-    await registration_new_user(user_data)
+    us = UserServices()
+    await us.registration_new_user(user_data)
     return {'message': 'Successfull registration'}
 
 
